@@ -4,8 +4,9 @@ services:
   laravel:
     image: yourpoke/laravel:latest
     container_name: yourpoke_laravel
+    restart: on-failure:5
     volumes:
-      - .:/var/www/laravel
+      - ./laravel:/var/www/laravel
     networks:
       - yourpoke-network
     depends_on:
@@ -23,27 +24,39 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-pokextremelysecurepassword}
       MYSQL_ROOT_HOST: "%"
-      MYSQL_DATABASE: '${DB_DATABASE}'
-      MYSQL_USER: '${DB_USERNAME}'
-      MYSQL_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_DATABASE: ${DB_DATABASE:-pokedb}
+      MYSQL_USER: ${DB_USERNAME:-pokeuser}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-pokextremelysecurepassword}
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
     volumes:
       - dbdata:/var/lib/mysql/
     networks:
       - yourpoke-network
 
+  vue:
+    image: yourpoke/vue:latest
+    container_name: yourpoke_vue
+    restart: on-failure:5
+    tty: true
+    ports:
+      - 6969:6969
+    volumes:
+      - ./vue/src:/app/src
+
   nginx:
     image: yourpoke/nginx:latest
     container_name: yourpoke_nginx
+    restart: on-failure:5
     ports:
       - 80:80
+      - 3000:3000
       - 443:443
     networks:
       - yourpoke-network
     volumes:
-      - .:/var/www/laravel
+      - ./laravel:/var/www/laravel
       - ./nginx/site.conf:/etc/nginx/conf.d/default.conf
     extra_hosts:
       - host.docker.internal:host-gateway
@@ -53,4 +66,3 @@ networks:
     driver: bridge
 volumes:
   dbdata: { }
-  redisdata: { }
