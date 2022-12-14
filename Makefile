@@ -7,7 +7,7 @@ CURR_UID ?= $(shell id -u)
 
 setup: build-no-cache
 
-build-no-cache: build-nginx-no-cache build-laravel-no-cache
+build-no-cache: build-nginx-no-cache build-laravel-no-cache build-vue-no-cache
 
 build-laravel:
 	@echo "Building Your Poke Project - Laravel..."
@@ -29,7 +29,7 @@ build-vue-no-cache:
 	@echo "Building Your Poke Project - Vue Service [LOCAL]..."
 	@docker build -f vue/Dockerfile -t yourpoke/vue:latest vue --no-cache
 
-rebuild-vue:
+build-vue:
 	@echo "Rebuilding Your Poke Project - Vue Service..."
 	@docker build -f vue/Dockerfile -t yourpoke/vue:latest vue
 

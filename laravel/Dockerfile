@@ -41,4 +41,4 @@ COPY . .
 
 EXPOSE 9000
 
-CMD bash -c "composer install && docker-php-entrypoint php-fpm"
+CMD bash -c "composer install && php artisan migrate && docker-php-entrypoint php-fpm"

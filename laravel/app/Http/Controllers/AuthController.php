@@ -44,33 +44,9 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-//        event(new Registered($user));
-
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
         ]);
     }
-
-//    public function setPassword(Request $request): JsonResponse
-//    {
-//        $validatedData = $request->validate([
-//            'email' => 'required|string|email|max:255|exists:users',
-//            'password' => 'required|string|min:8',
-//        ]);
-//
-//        $user = User::query()->where('email', $validatedData['email'])->firstOrFail();
-//        $user->password = \Hash::make($validatedData['password']);
-//        $user->email_verified_at = Carbon::now();
-//        $user->save();
-//
-//        $token = $user->createToken('auth_token')->plainTextToken;
-//
-//        return response()->json([
-//            'access_token' => $token,
-//            'token_type' => 'Bearer',
-//        ]);
-//    }
-
-
 }

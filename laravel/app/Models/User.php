@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -41,4 +41,19 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function pokemonCollection(): HasMany
+    {
+        return $this->hasMany(PokemonCollection::class);
+    }
+
+    public function pokemonLikes(): HasMany
+    {
+        return $this->hasMany(PokemonCollection::class)->where('type', '=', 'like');
+    }
+
+    public function pokemonHates(): HasMany
+    {
+        return $this->hasMany(PokemonCollection::class)->where('type', '=', 'hate');
+    }
 }
