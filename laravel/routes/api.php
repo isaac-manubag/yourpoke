@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [UserController::class, 'userProfile']);
     Route::post('/add-to-collection', [UserController::class, 'addPokemonToCollection']);
     Route::post('/remove-from-collection', [UserController::class, 'removePokemonFromCollection']);
+    Route::get('/community', [UserController::class, 'getAllUsers']);
 });
 
 

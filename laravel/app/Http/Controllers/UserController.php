@@ -9,6 +9,7 @@ use App\Http\Resources\UserResource;
 use App\Models\PokemonCollection;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class UserController extends Controller
 {
@@ -29,6 +30,11 @@ class UserController extends Controller
         return PokemonCollection::where('id', '=', $request->input('id'))
             ->where('user_id', '=', auth()->user()->id)
             ->delete();
+    }
+
+    public function getAllUsers(): AnonymousResourceCollection
+    {
+        return UserResource::collection(User::with(['pokemonLikes', 'pokemonHates'])->get());
     }
 
 }

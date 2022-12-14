@@ -32,28 +32,37 @@ function submit(event: PointerEvent) {
 </script>
 
 <template>
-  <div class="form-container">
-    <form>
-      <input v-model="name" placeholder="name" />
-      <input v-model="email" placeholder="email" />
-      <input v-model="password" placeholder="password" type="password" />
-      <button @click="submit">register</button>
-    </form>
-    <p>Already have an account? <RouterLink to="/login">LOGIN</RouterLink></p>
+  <div class="container">
+    <div class="form-container">
+      <form>
+        <input v-model="name" placeholder="name" />
+        <input v-model="email" placeholder="email" />
+        <input v-model="password" placeholder="password" type="password" />
+        <button @click="submit">REGISTER</button>
+      </form>
+      <p>Already have an account? <RouterLink to="/login">LOGIN</RouterLink></p>
 
-    <p>{{ errors }}</p>
+      <p>{{ errors }}</p>
+    </div>
   </div>
 </template>
 
-<style scoped>
-.form-container {
-  display: grid;
-  place-items: center;
-}
-
-form {
+<style scoped lang="scss">
+.container {
+  height: 100vh;
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+
+  .form-container {
+    display: grid;
+    place-items: center;
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
 }
 </style>

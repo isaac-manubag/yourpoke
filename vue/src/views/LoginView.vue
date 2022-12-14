@@ -3,8 +3,8 @@ import { ref } from "vue";
 import { useAuthStore } from "@/stores/auth";
 import router from "@/router";
 
-const email = ref("isaac@yourpoke.com");
-const password = ref("isaacyourpoke");
+const email = ref("");
+const password = ref("");
 const errors = ref("");
 
 function submit(event: PointerEvent) {
@@ -30,28 +30,38 @@ function submit(event: PointerEvent) {
 </script>
 
 <template>
-  <div class="form-container">
-    <form>
-      <input v-model="email" placeholder="email" />
-      <input v-model="password" placeholder="password" type="password" />
-      <button @click="submit">LOGIN</button>
-    </form>
+  <div class="container">
+    <div class="form-container">
+      <h1>Your Poke Login</h1>
+      <form>
+        <input v-model="email" placeholder="email" />
+        <input v-model="password" placeholder="password" type="password" />
+        <button @click="submit">LOGIN</button>
+      </form>
 
-    <p><RouterLink to="/register">SIGN UP</RouterLink></p>
+      <p>Need an account? <RouterLink to="/register">SIGN UP</RouterLink></p>
 
-    <p>{{ errors }}</p>
+      <p>{{ errors }}</p>
+    </div>
   </div>
 </template>
 
-<style scoped>
-.form-container {
-  display: grid;
-  place-items: center;
-}
-
-form {
+<style lang="scss" scoped>
+.container {
+  height: 100vh;
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+
+  .form-container {
+    display: grid;
+    place-items: center;
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
 }
 </style>

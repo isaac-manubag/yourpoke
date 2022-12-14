@@ -3,6 +3,7 @@ import { useAuthStore } from "@/stores/auth";
 import PokeList from "@/components/PokeList.vue";
 import PokeCard from "@/components/PokeCard.vue";
 import PokeModal from "@/components/PokeModal.vue";
+import Navigation from "@/components/Navigation.vue";
 import { ref } from "vue";
 import { usePokeStore } from "@/stores/pokemon";
 
@@ -21,21 +22,17 @@ function setActivePokemon(id: number) {
 function removeFromList(id: number) {
   authStore.removePokemonFromCollection(id);
 }
-
-function logout() {
-  authStore.logout();
-}
 </script>
 
 <template>
-  <p>{{ authStore.user.name }} <button @click="logout">logout</button></p>
-
+  <Navigation></Navigation>
   <div class="container">
     <div class="like-list">
       <h1>You Like</h1>
       <div
         v-for="(pokemon, index) in authStore.user.pokemon_likes"
         :key="'poke' + index"
+        class="card-container"
       >
         <PokeCard
           :pokemon="{ id: pokemon.pokemon_id, name: pokemon.name }"
@@ -50,6 +47,7 @@ function logout() {
       <div
         v-for="(pokemon, index) in authStore.user.pokemon_hates"
         :key="'poke' + index"
+        class="card-container"
       >
         <PokeCard
           :pokemon="{ id: pokemon.pokemon_id, name: pokemon.name }"
@@ -76,9 +74,15 @@ function logout() {
   .like-list {
     width: 300px;
     display: flex;
+    align-items: center;
 
     flex-direction: column;
     gap: 8px;
+
+    .card-container {
+      display: flex;
+      flex-direction: column;
+    }
   }
 }
 </style>
